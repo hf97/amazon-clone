@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
+import { db } from './firebase';
 import Product from './Product';
 
 function Home() {
+  const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    db
+      .collection('products')
+      .onSnapshot(snapshot => {
+        setProdutos(snapshot.docs.map(doc => ({
+          id: doc.id,
+          title: doc.data().title,
+          image: doc.data().image,
+          rating: doc.data().rating,
+          price: doc.data().price
+        })))
+      })
+  }, []);
+
   return (
     <div className='home'>
       <div className="home__container">
@@ -14,58 +31,58 @@ function Home() {
 
         <div className="home__row">
           <Product
-            key="1"
-            id="1"
-            title="The lean startup"
-            price={29.99}
-            image='https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg'
-            rating={5}
+            key={produtos[3]?.id}
+            id={produtos[3]?.id}
+            title={produtos[3]?.title}
+            price={produtos[3]?.price}
+            image={produtos[3]?.image}
+            rating={produtos[3]?.rating}
           />
           <Product
-            key="2"
-            id="2"
-            title="Kenwood kMix Stand Mixer for Baking, Stylish Kitchen Mixer with K-beater, Dough Hook and Whisk, 5 Litre Glass Bowl"
-            price={239.0}
-            image='https://images-na.ssl-images-amazon.com/images/I/91gRKbX%2BS8L._AC_SL1500_.jpg'
-            rating={4}
-          />
-        </div>
-
-        <div className="home__row">
-          <Product
-            key="3"
-            id="3"
-            title="SmartWhach"
-            price={199.99}
-            image='https://images-na.ssl-images-amazon.com/images/I/71Swqqe7XAL._AC_SX466_.jpg'
-            rating={3}
-          />
-          <Product
-            key="4"
-            id="4"
-            title="Amazon Echo /3rd generation) | Smart speaker with Alexa, Charcoal Fabric"
-            price={98.99}
-            image='https://media.very.co.uk/i/very/P6LTG_SQ1_0000000071_CHARCOAL_SLf?$300x400_retinamobilex2$'
-            rating={5}
-          />
-          <Product
-            key="5"
-            id="5"
-            title="New Apple iPad Pro (12.9-inch, Wi-Fi, 128GB) - Silver ($th Generation)"
-            price={598.99}
-            image='https://images-na.ssl-images-amazon.com/images/I/816ctt5WV5L._AC_SX385_.jpg'
-            rating={4}
+            key={produtos[1]?.id}
+            id={produtos[1]?.id}
+            title={produtos[1]?.title}
+            price={produtos[1]?.price}
+            image={produtos[1]?.image}
+            rating={produtos[1]?.rating}
           />
         </div>
 
         <div className="home__row">
           <Product
-            key="6"
-            id="6"
-            title="Samsung LC59RG90SSUZEN 49' Curved LED Gaming Monitor - Super Ultra Wide Dual WQHD 5120 x 1440'"
-            price={1094.98}
-            image='https://images-na.ssl-images-amazon.com/images/I/6125mFrzr6L._AC_SX355_.jpg'
-            rating={5}
+            key={produtos[2]?.id}
+            id={produtos[2]?.id}
+            title={produtos[2]?.title}
+            price={produtos[2]?.price}
+            image={produtos[2]?.image}
+            rating={produtos[2]?.rating}
+          />
+          <Product
+            key={produtos[4]?.id}
+            id={produtos[4]?.id}
+            title={produtos[4]?.title}
+            price={produtos[4]?.price}
+            image={produtos[4]?.image}
+            rating={produtos[4]?.rating}
+          />
+          <Product
+            key={produtos[5]?.id}
+            id={produtos[5]?.id}
+            title={produtos[5]?.title}
+            price={produtos[5]?.price}
+            image={produtos[5]?.image}
+            rating={produtos[5]?.rating}
+          />
+        </div>
+
+        <div className="home__row">
+          <Product
+            key={produtos[0]?.id}
+            id={produtos[0]?.id}
+            title={produtos[0]?.title}
+            price={produtos[0]?.price}
+            image={produtos[0]?.image}
+            rating={produtos[0]?.rating}
           />
         </div>
       </div>
