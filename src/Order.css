@@ -16,3 +16,38 @@
     font-weight: 500;
     text-align: right;
 }
+
+@media (max-width: 550px) {
+    .order {
+        padding: 5px;
+        margin: 5px 0;
+    }
+    
+    .order__id {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .order__total {
+        font-weight: 500;
+        text-align: right;
+    }
+}
+
+@media (max-width: 290px) {
+    .order {
+        padding: 5px;
+        margin: 5px 0;
+    }
+    
+    .order__id {
+        top: 13px;
+        right: 10px;
+        font-size: 12px;
+    }
+    
+    .order__total {
+        font-weight: 500;
+        text-align: right;
+    }
+}

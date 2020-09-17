@@ -1,4 +1,6 @@
 .subtotal {
+    position: sticky;
+    top: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -28,4 +30,21 @@
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+}
+
+@media (max-width: 550px) {
+    .subtotal {
+        width: 100px;
+        height: 200px;
+        padding: 15px;
+    }
+
+    .subtotal__gift > input {
+        margin-right: 4px;
+    }
+    
+    .subtotal > button {
+        height: 40px;
+        margin-top: 5px;
+    }
 }

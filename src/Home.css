@@ -19,3 +19,31 @@
     margin-bottom: -150px;
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
+
+@media (max-width: 520px){
+    .home {
+        max-width: 100vw;
+    }
+
+    .home__row {
+        flex-direction: column;
+    }
+
+    .home__image {
+        width: 100vw;
+        z-index: -1;
+        margin-bottom: -120px;
+    }
+}
+
+@media (max-width: 340px){
+    .home__image {
+        margin-bottom: -100px;
+    }
+}
+
+@media (max-width: 340px){
+    .home__image {
+        margin-bottom: -80px;
+    }
+}

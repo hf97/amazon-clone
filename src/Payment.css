@@ -48,3 +48,28 @@
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
 }
+
+@media (max-width: 430px) {
+    .payment__container > h1 {
+        padding: 10px;
+        font-size: 25px;
+    }
+    
+    .payment__section {
+        padding: 10px;
+        margin: 5px;
+    }
+    
+    .payment__details > form {
+        max-width: 300px;
+    }
+
+    .payment__title > h3 {
+        font-size: 15px;
+    }
+
+    .payment__address, .payment__items, .payment__details {
+        margin-left: 10px;
+    }
+    
+}

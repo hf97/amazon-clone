@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useStateValue } from './StateProvider';
 import { Link, useHistory } from 'react-router-dom';
-import './Payment.css';
 import CheckoutProduct from './CheckoutProduct';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
+import './Payment.css';
 import { getBasketTotal } from './Reducer';
 import axios from './axios';
 import { db } from './firebase';
@@ -34,8 +34,6 @@ function Payment() {
     }
     getClientSecret();
   }, [basket]);
-
-  console.log('secret ', clientSecret)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
