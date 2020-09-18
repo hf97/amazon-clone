@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import './Header.css';
 import { useStateValue } from './StateProvider';
 import { auth } from './firebase';
+import Search from './Search';
 
 function Header() {
   const [{ basket, user }] = useStateValue();
+  const [input, setInput] = useState('');
 
   const handleAuthentication = () => {
     if (user) {
@@ -26,11 +28,21 @@ function Header() {
       </Link>
 
       <div className="header__search">
-        <input
-          className='header__searchInput'
-          type='text'
-        />
-        <SearchIcon className='header__searchIcon' />
+        <form className='header_searchForm'>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className='header__searchInput'
+            type='text'
+          />
+          <Link to={{
+            pathname: '/search',
+            search: `${input}`
+          }}>
+            <button className='header__searchButton' type='submit'></button>
+            <SearchIcon className='header__searchIcon' />
+          </Link>
+        </form>
       </div>
 
       <div className="header__nav">

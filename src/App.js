@@ -11,6 +11,7 @@ import Login from './Login';
 import { useStateValue } from './StateProvider';
 import Payment from './Payment';
 import Orders from './Orders';
+import Search from './Search';
 
 const promise = loadStripe('pk_test_51HRxpYFiopHTY411Bdft7gQjkdFUYefJ2KxWF2AxPV1ag8W50KN9hXMAs7mcqf9kjzDzDC04QhxzQC0mfDitIQud00SeY5pErQ');
 
@@ -57,6 +58,11 @@ function App() {
           <Route path='/orders'>
             <Header />
             <Orders />
+          </Route>
+          
+          <Route path='/search'>
+            <Header />
+            <Search />
           </Route>
 
           <Route path='/'>
