@@ -24,6 +24,22 @@ function Payment() {
 
   const [clientSecret, setClientSecret] = useState(true);
 
+  var seen = {};
+  var elems = [];
+
+  let countFunc = keys => {
+    seen[keys.id] = ++seen[keys.id] || 1;
+  }
+
+  basket.forEach(countFunc);
+
+  for (const [key, value] of Object.entries(seen)) {
+    var values = basket.find(item => {
+      return item.id === key;
+    })
+    elems.push(values);
+  }
+
   useEffect(() => {
     const getClientSecret = async () => {
       const response = await axios({
@@ -93,7 +109,7 @@ function Payment() {
             <h3>Review items and delivery</h3>
           </div>
           <div className="payment__items">
-            {basket.map(item => (
+            {elems.map(item => (
               <CheckoutProduct
                 key={item.key}
                 id={item.id}
@@ -101,6 +117,8 @@ function Payment() {
                 image={item.image}
                 price={item.price}
                 rating={item.rating}
+                numberOfItems={basket.filter(v => v.id === item.id).length}
+              // hideButton
               />
             ))}
           </div>

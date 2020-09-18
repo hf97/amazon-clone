@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Checkout.css'
 import CheckoutProduct from './CheckoutProduct';
 import { useStateValue } from './StateProvider';
@@ -6,6 +6,21 @@ import Subtotal from './Subtotal';
 
 function Checkout() {
   const [{ basket }] = useStateValue();
+  var seen = {};
+  var elems = [];
+
+  let countFunc = keys => {
+    seen[keys.id] = ++seen[keys.id] || 1;
+  }
+
+  basket.forEach(countFunc);
+
+  for (const [key, value] of Object.entries(seen)) {
+    var values = basket.find(item => {
+      return item.id === key;
+    })
+    elems.push(values);
+  }
 
   return (
     <div className='checkout'>
@@ -19,7 +34,19 @@ function Checkout() {
         <div>
           <h2 className="checkout__title">Your shopping baskett</h2>
 
-            {basket.map(item => (
+          {elems.map(item => (
+            <CheckoutProduct
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              image={item.image}
+              price={item.price}
+              rating={item.rating}
+              numberOfItems={basket.filter(v => v.id === item.id).length}
+            />
+          )
+          )}
+          {/* {basket.map(item => (
               <CheckoutProduct
                 key={item.id}
                 id={item.id}
@@ -27,9 +54,9 @@ function Checkout() {
                 image={item.image}
                 price={item.price}
                 rating={item.rating}
-                // numberOfItems={basket.filter(v => v.id === item.id).length}
+                numberOfItems={basket.filter(v => v.id === item.id).length}
               />
-            ))}
+            ))} */}
         </div>
       </div>
 
