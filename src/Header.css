@@ -50,6 +50,11 @@
     padding: 5px;
     height: 25px !important;
     background-color: #cd9042;
+    color: #111;
+}
+
+.header__searchIcon:hover {
+    color: white;
 }
 
 .header__nav {

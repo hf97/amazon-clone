@@ -22,10 +22,6 @@ function Checkout() {
     elems.push(values);
   }
 
-
-  console.log(user);
-
-
   return (
     <div className='checkout'>
       <div className="checkout__left">

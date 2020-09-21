@@ -10,10 +10,6 @@ function Search() {
 
   if (querie === '') history.replace('/');
 
-  console.log(history)
-
-  // console.log(querie)
-
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -28,22 +24,22 @@ function Search() {
       })
   }, [history]);
 
-  // console.log(results)
-
   return (
     <div className='search'>
       <h1>Results of searching: "{querie}" ({results.length} products)</h1>
 
       <div className='search__product'>
         {results.reverse().map(item => (
-          <Product
-            key={item?.id}
-            id={item?.id}
-            title={item?.title}
-            price={item?.price}
-            image={item?.image}
-            rating={item?.rating}
-          />
+          <div className="search__row">
+            <Product
+              key={item?.id}
+              id={item?.id}
+              title={item?.title}
+              price={item?.price}
+              image={item?.image}
+              rating={item?.rating}
+            />
+          </div>
         ))}
       </div>
     </div>
