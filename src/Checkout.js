@@ -5,7 +5,7 @@ import { useStateValue } from './StateProvider';
 import Subtotal from './Subtotal';
 
 function Checkout() {
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
   var seen = {};
   var elems = [];
 
@@ -21,6 +21,10 @@ function Checkout() {
     })
     elems.push(values);
   }
+
+
+  console.log(user);
+
 
   return (
     <div className='checkout'>
@@ -46,22 +50,11 @@ function Checkout() {
             />
           )
           )}
-          {/* {basket.map(item => (
-              <CheckoutProduct
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                image={item.image}
-                price={item.price}
-                rating={item.rating}
-                numberOfItems={basket.filter(v => v.id === item.id).length}
-              />
-            ))} */}
         </div>
       </div>
 
       <div className="checkout__right">
-        <Subtotal />
+        <Subtotal user={user} />
       </div>
     </div>
   )

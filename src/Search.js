@@ -8,7 +8,9 @@ function Search() {
   const history = useHistory();
   const querie = window.location.search.replace('?', '');
 
-  if(querie === '' ) history.replace('/');
+  if (querie === '') history.replace('/');
+
+  console.log(history)
 
   // console.log(querie)
 
@@ -19,21 +21,19 @@ function Search() {
       .collection('products')
       .onSnapshot(snapshot => {
         snapshot.docs.map(item => {
-          // console.log(item.data().title)
-          // console.log(querie)
           if (item.data().title.toLowerCase().includes(querie.toLowerCase())) {
             setResults(results => [...results, item.data()])
           }
         })
       })
-  }, [querie]);
+  }, [history]);
 
   // console.log(results)
 
   return (
     <div className='search'>
       <h1>Results of searching: "{querie}" ({results.length} products)</h1>
-      
+
       <div className='search__product'>
         {results.reverse().map(item => (
           <Product

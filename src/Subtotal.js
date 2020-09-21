@@ -5,11 +5,11 @@ import { getBasketTotal } from './Reducer';
 import { useStateValue } from './StateProvider';
 import './Subtotal.css';
 
-function Subtotal() {
+function Subtotal( {user} ) {
   const history = useHistory();
   const [{ basket }] = useStateValue();
 
-  return (
+  return user !== null ? (
     <div className='subtotal'>
       <CurrencyFormat
         renderText={(value) => (
@@ -32,6 +32,8 @@ function Subtotal() {
       />
       <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
     </div>
+  ) : (
+    <h1>Please login</h1>
   )
 }
 
