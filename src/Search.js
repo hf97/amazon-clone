@@ -8,6 +8,7 @@ import { useStateValue } from './StateProvider';
 function Search() {
   const [{ search }] = useStateValue();
   const history = useHistory();
+  //search link
   const querie = window.location.search.replace('?', '');
 
   if (querie === '') history.replace('/');
@@ -47,6 +48,7 @@ function Search() {
           </div>
         ))}
       </div>
+      
     </div>
   )
 }

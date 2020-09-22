@@ -42,13 +42,13 @@ function Payment() {
 
   useEffect(() => {
     const getClientSecret = async () => {
-      try{
+      try {
         const response = await axios({
           method: 'post',
           url: `/payments/create?total=${getBasketTotal(basket) * 100}`
         });
         setClientSecret(response.data.clientSecret);
-      }catch{
+      } catch {
         console.error(error)
       }
     }
@@ -63,26 +63,28 @@ function Payment() {
       payment_method: {
         card: elements.getElement(CardElement)
       }
-    }).then(({ paymentIntent }) => {
-      db
-        .collection('users')
-        .doc(user?.uid)
-        .collection('orders')
-        .doc(paymentIntent.id)
-        .set({
-          basket: basket,
-          amount: paymentIntent.amount,
-          created: paymentIntent.created //timestamp
-        })
-
-      setSucceeded(true);
-      setError(null);
-      setProcessing(false);
-      dispatch({
-        type: 'EMPTY_BASKET'
-      })
-      history.replace('/orders');
     })
+      .then(({ paymentIntent }) => {
+        db
+          .collection('users')
+          .doc(user?.uid)
+          .collection('orders')
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created //timestamp
+          })
+
+        setSucceeded(true);
+        setError(null);
+        setProcessing(false);
+
+        dispatch({
+          type: 'EMPTY_BASKET'
+        })
+        history.replace('/orders');
+      })
   };
 
   const handleChange = event => {
@@ -93,25 +95,31 @@ function Payment() {
   return (
     <div className='payment'>
       <div className="payment__container">
+
         <h1>
           Checkout {<Link to='/checkout'>({basket?.length} items)</Link>}
         </h1>
 
         <div className="payment__section">
+
           <div className="payment__title">
             <h3>Delivery Adress</h3>
           </div>
+
           <div className="payment__address">
             <p>{user?.email}</p>
             <p>123 React Lane</p>
             <p>Los Angeles, CA</p>
           </div>
+
         </div>
 
         <div className="payment__section">
+
           <div className="payment__title">
             <h3>Review items and delivery</h3>
           </div>
+
           <div className="payment__items">
             {elems.map(item => (
               <CheckoutProduct
@@ -122,16 +130,19 @@ function Payment() {
                 price={item.price}
                 rating={item.rating}
                 numberOfItems={basket.filter(v => v.id === item.id).length}
-              // hideButton
+                hideButton
               />
             ))}
           </div>
+
         </div>
 
         <div className="payment__section">
+
           <div className="payment__title">
             <h3>Payment Method</h3>
           </div>
+
           <div className="payment__details">
             <form onSubmit={handleSubmit}>
               <CardElement onChange={handleChange} />
@@ -155,6 +166,7 @@ function Payment() {
               {error && <div>{error}</div>}
             </form>
           </div>
+
         </div>
       </div>
     </div>

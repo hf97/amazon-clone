@@ -16,9 +16,11 @@ import Search from './Search';
 const promise = loadStripe('pk_test_51HRxpYFiopHTY411Bdft7gQjkdFUYefJ2KxWF2AxPV1ag8W50KN9hXMAs7mcqf9kjzDzDC04QhxzQC0mfDitIQud00SeY5pErQ');
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
+  const sessionStorageBasket = JSON.parse(sessionStorage.getItem("basket"))
 
   useEffect(() => {
+    //check if user is login
     auth.onAuthStateChanged(authUser => {
       if (authUser) {
         dispatch({
@@ -32,6 +34,21 @@ function App() {
         })
       }
     })
+    //load basket in session storage
+    if (sessionStorageBasket) {
+      sessionStorageBasket.map(item => (
+        dispatch({
+          type: 'ADD_TO_BASKET',
+          item: {
+            id: item.id,
+            title: item.title,
+            image: item.image,
+            price: item.price,
+            rating: item.rating
+          }
+        })
+      ))
+    }
   }, [])
 
   return (
@@ -54,12 +71,12 @@ function App() {
               <Payment />
             </Elements>
           </Route>
-          
+
           <Route path='/orders'>
             <Header />
             <Orders />
           </Route>
-          
+
           <Route path='/search'>
             <Header />
             <Search />

@@ -10,6 +10,7 @@ export const getBasketTotal = (basket) =>
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TO_BASKET':
+      sessionStorage.setItem('basket', JSON.stringify([...state.basket, action.item]))
       return {
         ...state,
         basket: [...state.basket, action.item],
@@ -19,6 +20,7 @@ const reducer = (state, action) => {
       const index = state.basket.findIndex(
         (basketItem) => basketItem.id === action.id
       );
+      
       let newBasket = [...state.basket];
       if (index >= 0) {
         newBasket.splice(index, 1);
@@ -27,11 +29,14 @@ const reducer = (state, action) => {
           `Cant remove product (id: ${action.id} as its not in basket!)`
         )
       }
+
+      sessionStorage.setItem('basket', JSON.stringify(newBasket))
+      
       return {
         ...state,
         basket: newBasket
       }
-    
+
     case 'EMPTY_BASKET':
       return {
         ...state,

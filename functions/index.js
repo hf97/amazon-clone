@@ -3,8 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const stripe = require('stripe')('sk_test_51HRxpYFiopHTY411SC15r3SlFoc1YIhxRABg0v53lKr5YFthPSIB5Rus5wEMEhgJQtsbEJy1GTel0CJpLOtXQfE600TTRrrBZc');
 
-// API
-
 
 // App config
 const app = express();

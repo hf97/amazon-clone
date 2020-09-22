@@ -9,6 +9,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  //singIn
   const signIn = e => {
     e.preventDefault();
     auth
@@ -19,6 +20,7 @@ function Login() {
       .catch(error => alert(error.message))
   }
 
+  //register
   const register = e => {
     e.preventDefault();
     auth

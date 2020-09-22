@@ -10,7 +10,8 @@ function Subtotal( {user} ) {
   const [{ basket }] = useStateValue();
 
   const [canCheckout, setCanCheckout] = useState(false);
-
+  
+  //can click checkout button if basket not empty
   useEffect(() => {
     if(basket.length > 0) {
       setCanCheckout(true);
@@ -40,6 +41,7 @@ function Subtotal( {user} ) {
         thousandSeparator={true}
         prefix={"€"}
       />
+      
       <button disabled={!canCheckout} onClick={e => history.push('/payment')}>Proceed to Checkout</button>
     </div>
   ) : (

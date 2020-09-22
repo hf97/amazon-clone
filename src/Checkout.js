@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Checkout.css'
 import CheckoutProduct from './CheckoutProduct';
 import { useStateValue } from './StateProvider';
@@ -9,21 +9,19 @@ function Checkout() {
   var seen = {};
   var elems = [];
 
-  let countFunc = keys => {
+  //makes basket dictionary with item and number of times in basket
+  const countFunc = keys => {
     seen[keys.id] = ++seen[keys.id] || 1;
   }
-
   basket.forEach(countFunc);
 
+  //display elems in basket one time
   for (const [key, value] of Object.entries(seen)) {
     var values = basket.find(item => {
       return item.id === key;
     })
     elems.push(values);
   }
-
-  console.log("seen", seen)
-  console.log("elems", elems)
 
   return (
     <div className='checkout'>
@@ -37,7 +35,8 @@ function Checkout() {
         <div>
           <h2 className="checkout__title">Your shopping baskett</h2>
 
-          {elems.sort((a,b) => a.title.localeCompare(b.title)).map(item => (
+          {/* order items in basket by title */}
+          {elems.sort((a, b) => a.title.localeCompare(b.title)).map(item => (
             <CheckoutProduct
               key={item.id}
               id={item.id}
@@ -45,7 +44,7 @@ function Checkout() {
               image={item.image}
               price={item.price}
               rating={item.rating}
-              numberOfItems={basket.filter(v => v.id === item.id).length}
+              numberOfItems={basket.filter(v => v.id === item.id).length} // number of times element is in basket
             />
           )
           )}
@@ -53,6 +52,7 @@ function Checkout() {
       </div>
 
       <div className="checkout__right">
+        {/* only display subtotal if user is login */}
         <Subtotal user={user} />
       </div>
     </div>

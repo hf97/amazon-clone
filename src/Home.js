@@ -5,10 +5,7 @@ import Product from './Product';
 import { useStateValue } from './StateProvider';
 
 function Home() {
-  const [{ search }, dispatch] = useStateValue();
   const [produtos, setProdutos] = useState([]);
-
-
 
   useEffect(() => {
     db
@@ -22,10 +19,6 @@ function Home() {
           price: doc.data().price
         })))
       })
-    // dispatch({
-    //   type: 'SET_SEARCH',
-    //   search: '',
-    // });
   }, []);
 
   return (

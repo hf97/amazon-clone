@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
@@ -8,15 +8,17 @@ import { auth } from './firebase';
 import Search from './Search';
 
 function Header() {
-  const [{ basket, user, search }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
   const [input, setInput] = useState('');
 
+  //sign out
   const handleAuthentication = () => {
     if (user) {
       auth.signOut();
     }
   }
 
+  //to search products
   const setSearch = () => {
     dispatch({
       type: 'SET_SEARCH',
@@ -56,27 +58,34 @@ function Header() {
         <Link to={!user && '/login'}>
           <div onClick={handleAuthentication} className="header__option">
             <span className='header__optionLineOne'>
+              {/* only show name before @ from email */}
               {user ? `Hello ${user.email.split(/[@]/)[0]}` : "Hello Guest"}
             </span>
+
             <span className='header__optionLineTwo'>
               {user ? "Sign Out" : "Sign In"}
             </span>
           </div>
         </Link>
-        <Link to='/orders'>
+        
+        {/* if user login goes to his orders, if not goes to login page */}
+        <Link to={user ? '/orders' : '/login'}>
           <div className="header__option">
             <span className='header__optionLineOne'>
               Returns
-          </span>
+            </span>
+
             <span className='header__optionLineTwo'>
               & Orders
           </span>
           </div>
         </Link>
+
         <div className="header__option">
           <span className='header__optionLineOne'>
             Your
           </span>
+
           <span className='header__optionLineTwo'>
             Prime
           </span>
@@ -86,6 +95,7 @@ function Header() {
       <Link to='/checkout'>
         <div className="header__optionBasket">
           <ShoppingBasketIcon />
+
           <span className='header__optionLineTwo header__basketCount'>
             {basket ? basket.length : 0}
           </span>
