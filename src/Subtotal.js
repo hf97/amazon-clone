@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import { useHistory } from 'react-router-dom';
 import { getBasketTotal } from './Reducer';
@@ -8,6 +8,16 @@ import './Subtotal.css';
 function Subtotal( {user} ) {
   const history = useHistory();
   const [{ basket }] = useStateValue();
+
+  const [canCheckout, setCanCheckout] = useState(false);
+
+  useEffect(() => {
+    if(basket.length > 0) {
+      setCanCheckout(true);
+    }else{
+      setCanCheckout(false);
+    }
+  }, [basket]);
 
   return user !== null ? (
     <div className='subtotal'>
@@ -30,7 +40,7 @@ function Subtotal( {user} ) {
         thousandSeparator={true}
         prefix={"€"}
       />
-      <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+      <button disabled={!canCheckout} onClick={e => history.push('/payment')}>Proceed to Checkout</button>
     </div>
   ) : (
     <h1>Please login</h1>

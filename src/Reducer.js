@@ -4,10 +4,6 @@ export const initialState = {
   search: ''
 };
 
-// export const actionTypes = {
-//   ADD_TO_BASKET: "ADD_TO_BASKET",
-// };
-
 export const getBasketTotal = (basket) =>
   basket?.reduce((amount, item) => item.price + amount, 0);
 
