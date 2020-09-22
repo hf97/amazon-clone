@@ -8,13 +8,20 @@ import { auth } from './firebase';
 import Search from './Search';
 
 function Header() {
-  const [{ basket, user }] = useStateValue();
+  const [{ basket, user, search }, dispatch] = useStateValue();
   const [input, setInput] = useState('');
 
   const handleAuthentication = () => {
     if (user) {
       auth.signOut();
     }
+  }
+
+  const setSearch = () => {
+    dispatch({
+      type: 'SET_SEARCH',
+      search: input,
+    });
   }
 
   return (
@@ -39,8 +46,8 @@ function Header() {
             pathname: '/search',
             search: `${input}`
           }}>
-            <button className='header__searchButton' type='submit'></button>
-            <SearchIcon className='header__searchIcon' />
+            <button className='header__searchButton' type='submit' onClick={setSearch}></button>
+            <SearchIcon className='header__searchIcon' onClick={setSearch} />
           </Link>
         </form>
       </div>

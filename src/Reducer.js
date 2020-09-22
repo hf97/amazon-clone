@@ -1,6 +1,7 @@
 export const initialState = {
   basket: [],
-  user: null
+  user: null,
+  search: ''
 };
 
 // export const actionTypes = {
@@ -45,6 +46,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user
+      }
+
+    case 'SET_SEARCH':
+      return {
+        ...state,
+        search: action.search
       }
 
     default:

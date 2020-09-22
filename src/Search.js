@@ -3,8 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { db } from './firebase';
 import Product from './Product';
 import './Search.css';
+import { useStateValue } from './StateProvider';
 
 function Search() {
+  const [{ search }] = useStateValue();
   const history = useHistory();
   const querie = window.location.search.replace('?', '');
 
@@ -13,20 +15,23 @@ function Search() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    db
-      .collection('products')
-      .onSnapshot(snapshot => {
-        snapshot.docs.map(item => {
-          if (item.data().title.toLowerCase().includes(querie.toLowerCase())) {
-            setResults(results => [...results, item.data()])
-          }
+    setResults([]);
+    if (search || querie) {
+      db
+        .collection('products')
+        .onSnapshot(snapshot => {
+          snapshot.docs.map(item => {
+            if (item.data().title.toLowerCase().includes(search.toLowerCase())) {
+              setResults(results => [...results, item.data()])
+            }
+          })
         })
-      })
-  }, [history]);
+    }
+  }, [history, querie, search]);
 
   return (
     <div className='search'>
-      <h1>Results of searching: "{querie}" ({results.length} products)</h1>
+      <h1>Results of searching: "{search || querie}" ({results.length} products)</h1>
 
       <div className='search__product'>
         {results.reverse().map(item => (
