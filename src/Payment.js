@@ -42,11 +42,15 @@ function Payment() {
 
   useEffect(() => {
     const getClientSecret = async () => {
-      const response = await axios({
-        method: 'post',
-        url: `/payments/create?total=${getBasketTotal(basket) * 100}`
-      });
-      setClientSecret(response.data.clientSecret);
+      try{
+        const response = await axios({
+          method: 'post',
+          url: `/payments/create?total=${getBasketTotal(basket) * 100}`
+        });
+        setClientSecret(response.data.clientSecret);
+      }catch{
+        console.error(error)
+      }
     }
     getClientSecret();
   }, [basket]);

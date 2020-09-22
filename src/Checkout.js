@@ -22,6 +22,9 @@ function Checkout() {
     elems.push(values);
   }
 
+  console.log("seen", seen)
+  console.log("elems", elems)
+
   return (
     <div className='checkout'>
       <div className="checkout__left">
@@ -34,7 +37,7 @@ function Checkout() {
         <div>
           <h2 className="checkout__title">Your shopping baskett</h2>
 
-          {elems.map(item => (
+          {elems.sort((a,b) => a.title.localeCompare(b.title)).map(item => (
             <CheckoutProduct
               key={item.id}
               id={item.id}
